@@ -1,0 +1,125 @@
+body { margin:0; padding:0; }
+#map { width:100vw; height:100vh; }
+
+/* Titre */
+#title {
+  position:absolute;
+  top:10px;
+  right:50px;
+  background:rgba(255,255,255,0.5);
+  padding:6px 12px;
+  border-radius:6px;
+  font-weight:bold;
+  backdrop-filter:blur(4px);
+  z-index:9999;
+}
+
+/* Logo centré en bas */
+#logo {
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9999;
+}
+
+/* Menu hamburger */
+#hamburger {
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:28px;
+  background:white;
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  z-index:9999;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Menu */
+#ui {
+  position:absolute;
+  top:60px;
+  left:10px;
+  background:rgba(255,255,255,0.5);
+  padding:12px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  font-family:sans-serif;
+  backdrop-filter:blur(4px);
+  width:260px;
+  max-height:80vh;
+  overflow-y:auto;
+  transition:transform 0.3s ease;
+  z-index:9998;
+}
+
+#ui.closed {
+  transform:translateX(-280px);
+}
+
+#ui h3 {
+  margin-top:0;
+  font-size:16px;
+  font-weight:bold;
+}
+
+#layersBox label {
+  display:block;
+  margin-bottom:4px;
+}
+
+/* Cercle pulsé */
+.pulse-circle {
+  width:40px;
+  height:40px;
+  background:rgba(0,123,255,0.3);
+  border-radius:50%;
+  position:absolute;
+  transform:translate(-50%, -50%);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform:translate(-50%, -50%) scale(0.6); opacity:0.7; }
+  70% { transform:translate(-50%, -50%) scale(1.4); opacity:0; }
+  100% { opacity:0; }
+}
+/* Bandeau texte défilant */
+#scrollText {
+  position: absolute;
+  bottom: 60px; /* juste au-dessus du logo */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border-radius: 6px;
+  padding: 4px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  font-size: 20px; /* ← taille du texte */
+}
+
+#scrollText .scroll-inner {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 35s linear infinite;
+  /* ici j'augmente pour régler la vitesse du texte */
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Apparition du bandeau au survol du logo */
+#logo:hover + #scrollText {
+  opacity: 1;
+}
