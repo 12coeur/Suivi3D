@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Suivi 3D par 12coeur</title>
+
+  <link href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<!-- Titre -->
+<div id="title">Suivi 3D par 12coeur</div>
+
+<!-- Logo -->
+<img id="logo" src="Images/logo.png">
+<div id="scrollText"> <div class="scroll-inner"> Cet outil n’a pas d’autre but que de vous situer dans un relief. C’est pourquoi vous disposez d’un curseur « Relief Z ». S’il n’est pas calé à gauche, il triche, mais, vous le verrez cela peut servir. Le mode Winter peut s’améliorer avec le curseur « éclairage ». Pour les jours blancs ! . En mode Winter, vous aurez le plan des pistes. Certains navigateurs ne vous donnent pas accès au GPS , alors vous pouvez regarder avec un autre .   </div> </div>
+<!-- Bouton hamburger -->
+<div id="hamburger">☰</div>
+
+<!-- Menu repliable -->
+<div id="ui" class="closed">
+  <h3>Outils</h3>
+
+  <input id="search" type="text" placeholder="Rechercher une adresse…" size="25">
+  <button id="btnSearch">OK</button>
+
+  <br><br>
+
+<label>Style :</label>
+<select id="styleSelect">
+  <option value="hybrid" selected>Hybrid (Jour)</option>
+  <option value="winter">Winter</option>
+  <option value="darkmatter">Dark Matter (Nuit)</option>
+  <option value="streets">Streets</option>
+  <option value="satellite">Satellite</option>
+</select>
+
+
+  <br><br>
+
+  <h3>Stations de ski</h3>
+  <select id="skiSelect">
+    <option value="">Choisir une station…</option>
+    <option value="6.869,45.923">Chamonix</option>
+    <option value="6.869,45.297">Les 2 Alpes</option>
+    <option value="6.825,45.899">Megève</option>
+    <option value="6.565,45.470">Alpe d’Huez</option>
+    <option value="6.777,45.985">Avoriaz</option>
+    <option value="7.058,45.933">Val d’Isère</option>
+  </select>
+
+  <br><br>
+
+  <h3>Layers</h3>
+  <div id="layersBox">
+    <label><input type="checkbox" data-layer="road" checked> Routes</label>
+    <label><input type="checkbox" data-layer="building" checked> Bâtiments</label>
+    <label><input type="checkbox" data-layer="water" checked> Eau</label>
+  </div>
+
+  <br>
+
+  <label>Relief Z :</label>
+  <input id="zFactor" type="range" min="1" max="10" value="1" step="0.1">
+
+  <br><br>
+  <label>Éclairage :</label> 
+  <input id="light" type="range" min="0.3" max="1.7" value="1" step="0.05">
+
+  <button id="trackBtn">Activer le suivi</button>
+</div>
+
+<script src="map.js"></script>
+
+</body>
+</html>
