@@ -1,4 +1,4 @@
-body { margin:0; padding:0; }
+body { margin:0; padding:0; font-size: 16px; }
 #map { width:100vw; height:100vh; }
 
 /* Titre */
@@ -6,12 +6,13 @@ body { margin:0; padding:0; }
   position:absolute;
   top:10px;
   right:50px;
-  background:rgba(255,255,255,0.5);
-  padding:6px 12px;
+  background:rgba(255,255,255,0.85);
+  padding:8px 14px;
   border-radius:6px;
   font-weight:bold;
   backdrop-filter:blur(4px);
   z-index:9999;
+  font-size: 14px;
 }
 
 /* Logo centré en bas */
@@ -21,6 +22,8 @@ body { margin:0; padding:0; }
   left:50%;
   transform:translateX(-50%);
   z-index:9999;
+  max-width: 80px;
+  height: auto;
 }
 
 /* Menu hamburger */
@@ -28,13 +31,15 @@ body { margin:0; padding:0; }
   position:absolute;
   top:10px;
   left:10px;
-  font-size:28px;
-  background:white;
-  padding:6px 10px;
-  border-radius:6px;
+  font-size:32px;
+  background:rgba(255,255,255,0.95);
+  padding:8px 14px;
+  border-radius:8px;
   cursor:pointer;
   z-index:9999;
-  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+  font-weight: bold;
+  line-height: 1;
 }
 
 /* Menu */
@@ -42,39 +47,122 @@ body { margin:0; padding:0; }
   position:absolute;
   top:60px;
   left:10px;
-  background:rgba(255,255,255,0.5);
-  padding:12px;
-  border-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  background:rgba(255,255,255,0.92);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
   font-family:sans-serif;
-  backdrop-filter:blur(4px);
-  width:260px;
+  backdrop-filter:blur(6px);
+  width:280px;
   max-height:80vh;
   overflow-y:auto;
   transition:transform 0.3s ease;
   z-index:9998;
+  font-size: 15px;
 }
 
 #ui.closed {
-  transform:translateX(-280px);
+  transform:translateX(-310px);
 }
 
 #ui h3 {
   margin-top:0;
-  font-size:16px;
+  margin-bottom: 10px;
+  font-size:18px;
   font-weight:bold;
+  color: #333;
+}
+
+#ui label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+  display: block;
+  margin-bottom: 6px;
+}
+
+#ui input[type="text"] {
+  padding: 10px;
+  font-size: 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: calc(100% - 60px);
+  margin-right: 6px;
+}
+
+#ui button {
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background 0.2s ease;
+}
+
+#ui button:hover {
+  background: #0056b3;
+}
+
+#ui button:active {
+  transform: scale(0.98);
+}
+
+#ui select {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#ui input[type="range"] {
+  width: 100%;
+  height: 8px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+#ui input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#layersBox {
+  background: rgba(240,240,240,0.8);
+  padding: 10px;
+  border-radius: 6px;
 }
 
 #layersBox label {
   display:block;
-  margin-bottom:4px;
+  margin-bottom:8px;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+#trackBtn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 16px;
 }
 
 /* Cercle pulsé */
 .pulse-circle {
-  width:40px;
-  height:40px;
-  background:rgba(0,123,255,0.3);
+  width:50px;
+  height:50px;
+  background:rgba(0,123,255,0.4);
   border-radius:50%;
   position:absolute;
   transform:translate(-50%, -50%);
@@ -82,36 +170,37 @@ body { margin:0; padding:0; }
 }
 
 @keyframes pulse {
-  0% { transform:translate(-50%, -50%) scale(0.6); opacity:0.7; }
-  70% { transform:translate(-50%, -50%) scale(1.4); opacity:0; }
+  0% { transform:translate(-50%, -50%) scale(0.6); opacity:0.8; }
+  70% { transform:translate(-50%, -50%) scale(1.5); opacity:0; }
   100% { opacity:0; }
 }
+
 /* Bandeau texte défilant */
 #scrollText {
   position: absolute;
-  bottom: 60px; /* juste au-dessus du logo */
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80vw;
-  height: 30px;
+  width: 85vw;
+  height: 40px;
   overflow: hidden;
   white-space: nowrap;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.75);
   color: white;
-  border-radius: 6px;
-  padding: 4px 10px;
+  border-radius: 8px;
+  padding: 8px 12px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 9999;
-  font-size: 20px; /* ← taille du texte */
+  font-size: 20px;
+  line-height: 24px;
 }
 
 #scrollText .scroll-inner {
   display: inline-block;
   padding-left: 100%;
   animation: scroll-left 35s linear infinite;
-  /* ici j'augmente pour régler la vitesse du texte */
 }
 
 @keyframes scroll-left {
@@ -119,7 +208,348 @@ body { margin:0; padding:0; }
   to   { transform: translateX(-100%); }
 }
 
-/* Apparition du bandeau au survol du logo */
-#logo:hover + #scrollText {
+/* Apparition du bandeau au survol/touch du logo */
+#logo:hover + #scrollText,
+#logo:active + #scrollText {
   opacity: 1;
+}
+
+/* AGRANDIR LES CONTRÔLES MAPTILER NATIFS */
+.maplibregl-ctrl-group {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+.maplibregl-ctrl-group button {
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 18px !important;
+}
+
+.maplibregl-ctrl-icon {
+  transform: scale(1.2);
+}
+
+.mapboxgl-ctrl-scale,
+.maplibregl-ctrl-scale {
+  font-size: 13px !important;
+  padding: 4px 8px !important;
+  background: rgba(255,255,255,0.9) !important;
+  border-radius: 4px !important;
+}
+
+/* ==================== RESPONSIVE PETITS ÉCRANS ==================== */
+
+@media (max-width: 768px) {
+  #title {
+    font-size: 13px;
+    padding: 6px 10px;
+    right: 10px;
+    top: 60px;
+  }
+
+  #logo {
+    max-width: 70px;
+    bottom: 15px;
+  }
+
+  #hamburger {
+    font-size: 36px;
+    padding: 10px 16px;
+  }
+
+  #ui {
+    width: 320px;
+    padding: 18px;
+    font-size: 16px;
+    max-height: 85vh;
+  }
+
+  #ui.closed {
+    transform:translateX(-350px);
+  }
+
+  #ui h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  #ui label {
+    font-size: 16px;
+  }
+
+  #ui input[type="text"] {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  #ui button {
+    padding: 12px 18px;
+    font-size: 16px;
+  }
+
+  #ui select {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  #ui input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  #layersBox label {
+    font-size: 16px;
+    padding: 6px 0;
+  }
+
+  #trackBtn {
+    padding: 14px;
+    font-size: 17px;
+  }
+
+  #scrollText {
+    font-size: 15px;
+    height: 36px;
+    bottom: 90px;
+  }
+
+  .maplibregl-ctrl-group button {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+  }
+
+  .pulse-circle {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Format 9:16 typique smartphones */
+@media (max-width: 480px) and (orientation: portrait) {
+  body {
+    font-size: 17px;
+  }
+
+  #title {
+    font-size: 12px;
+    padding: 5px 8px;
+    right: 10px;
+    top: 65px;
+  }
+
+  #logo {
+    max-width: 65px;
+    bottom: 20px;
+  }
+
+  #hamburger {
+    font-size: 40px;
+    padding: 12px 18px;
+  }
+
+  #ui {
+    width: 85vw;
+    max-width: 360px;
+    padding: 20px;
+    font-size: 17px;
+    top: 70px;
+    max-height: 82vh;
+  }
+
+  #ui.closed {
+    transform:translateX(-100vw);
+  }
+
+  #ui h3 {
+    font-size: 22px;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  #ui label {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  #ui input[type="text"] {
+    padding: 14px;
+    font-size: 17px;
+    border-width: 2px;
+    width: calc(100% - 70px);
+  }
+
+  #ui button {
+    padding: 14px 20px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  #btnSearch {
+    padding: 14px 16px;
+  }
+
+  #ui select {
+    padding: 14px;
+    font-size: 17px;
+    border-width: 2px;
+  }
+
+  #ui input[type="range"] {
+    height: 10px;
+    margin: 10px 0;
+  }
+
+  #ui input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+  }
+
+  #layersBox {
+    padding: 12px;
+  }
+
+  #layersBox label {
+    font-size: 17px;
+    padding: 8px 0;
+    margin-bottom: 10px;
+  }
+
+  #trackBtn {
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 14px;
+  }
+
+  #scrollText {
+    font-size: 14px;
+    height: 38px;
+    bottom: 95px;
+    width: 88vw;
+    padding: 8px 14px;
+  }
+
+  /* CONTRÔLES MAPTILER ENCORE PLUS GRANDS */
+  .maplibregl-ctrl-group button {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 24px !important;
+  }
+
+  .maplibregl-ctrl-icon {
+    transform: scale(1.4);
+  }
+
+  .mapboxgl-ctrl-scale,
+  .maplibregl-ctrl-scale {
+    font-size: 14px !important;
+    padding: 6px 10px !important;
+  }
+
+  .pulse-circle {
+    width: 70px;
+    height: 70px;
+  }
+
+  /* Marker utilisateur plus grand */
+  .maplibregl-marker {
+    transform: scale(1.3);
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 400px) and (orientation: portrait) {
+  body {
+    font-size: 18px;
+  }
+
+  #title {
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+
+  #hamburger {
+    font-size: 44px;
+    padding: 14px 20px;
+  }
+
+  #ui {
+    width: 90vw;
+    padding: 22px;
+    font-size: 18px;
+  }
+
+  #ui h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  #ui label {
+    font-size: 18px;
+  }
+
+  #ui input[type="text"] {
+    padding: 16px;
+    font-size: 18px;
+    width: calc(100% - 75px);
+  }
+
+  #ui button {
+    padding: 16px 22px;
+    font-size: 18px;
+  }
+
+  #ui select {
+    padding: 16px;
+    font-size: 18px;
+  }
+
+  #ui input[type="range"] {
+    height: 12px;
+  }
+
+  #ui input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+
+  #layersBox label {
+    font-size: 18px;
+    padding: 10px 0;
+  }
+
+  #trackBtn {
+    padding: 18px;
+    font-size: 19px;
+  }
+
+  /* CONTRÔLES MAPTILER ULTRA-GRANDS */
+  .maplibregl-ctrl-group button {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 26px !important;
+  }
+
+  .maplibregl-ctrl-icon {
+    transform: scale(1.5);
+  }
+
+  .maplibregl-marker {
+    transform: scale(1.4);
+  }
+}
+
+/* Mode paysage - ajustements */
+@media (max-height: 600px) and (orientation: landscape) {
+  #ui {
+    max-height: 75vh;
+    width: 300px;
+  }
+
+  #scrollText {
+    bottom: 70px;
+    height: 32px;
+  }
 }
