@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <title>Suivi 3D kdo  12coeur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suivi 3D par 12coeur</title>
 
   <link href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
@@ -13,70 +14,184 @@
 
 <div id="map"></div>
 
-<!-- Titre -->
+<!-- TITRE -->
 <div id="title">Suivi 3D par 12coeur</div>
 
-<!-- Logo -->
-<img id="logo" src="Images/logo.png">
-<div id="scrollText"> <div class="scroll-inner"> Cet outil n’a pas d’autre but que de vous situer dans un relief. C’est pourquoi vous disposez d’un curseur « Relief Z ». S’il n’est pas calé à gauche, il triche, mais, vous le verrez cela peut servir. Le mode Winter peut s’améliorer avec le curseur « éclairage ». Pour les jours blancs ! . En mode Winter, vous aurez le plan des pistes. Certains navigateurs ne vous donnent pas accès au GPS , alors vous pouvez regarder avec un autre .   </div> </div>
-<!-- Bouton hamburger -->
-<div id="hamburger">☰</div>
+<!-- 4 BOUTONS carrés EN HAUT À GAUCHE -->
+<div id="controls-top-left">
+ <!-- Bouton hamburger (menu principal) -->
+<button id="hamburger" class="map-btn" title="Menu principal">
+  <img src="Images/Hamburger.png" class="btn-icon" alt="Menu principal">
+</button>
 
-<!-- Menu repliable -->
-<div id="ui" class="closed">
-  <h3>Outils</h3>
+<!-- Bouton layers -->
+<button id="layersMenuBtn" class="map-btn" title="Couches">
+  <img src="Images/Layer.png" class="btn-icon" alt="Couches">
+</button>
 
-  <input id="search" type="text" placeholder="Rechercher une adresse…" size="25">
-  <button id="btnSearch">OK</button>
+<!-- Bouton parcours -->
+<button id="parcoursBtn" class="map-btn" title="Parcours">
+  <img src="Images/Parcours.png" class="btn-icon" alt="Parcours">
+</button>
 
-  <br><br>
+<!-- Bouton Caméra-->
+<button id="cameraBtn" class="map-btn" title="Caméra">
+  <img src="Images/Cam.png" class="btn-icon" alt="Angles de vue">
+</button>
 
-<label>Style :</label>
-<select id="styleSelect">
-  <option value="hybrid" selected>Hybrid (Jour)</option>
-  <option value="winter">Winter</option>
-  <option value="darkmatter">Dark Matter (Nuit)</option>
-  <option value="streets">Streets</option>
-  <option value="satellite">Satellite</option>
-</select>
+<!-- TEXTE DÉFILANT (aide) -->
+
+<div id="scrollText" class="hidden">
+  <div class="scroll-inner">
+  Dans cette version, j'ai ajouté des outils comme la caméra (rotation ou bascule). Vous trouverez également plus de couches. Des regroupements dans les différents menus. La possibilité maintenant d'enregistrer votre trace. Aussi dans cette version , un curseur en Z pour tricher sur la hauteur des reliefs. Le contraste est ajouté pour certaines cartes pour les jours blancs ! 
+  </div>
+</div>
 
 
-  <br><br>
+<!-- Bouton logo centré bas -->
+<button id="logoBtn" class="logo-btn" title="À propos de cette version">
+  <img src="Images/logo.png" alt="Logo">
+</button>
 
-  <h3>Stations de ski</h3>
+
+<!-- PANNEAU 1 : MENU PRINCIPAL (hamburger) -->
+<div id="ui" class="panel-slide closed">
+ <!-- <h3>Outils</h3>    -->
+  
+  <!-- Bouton centrage comme les autres -->
+  <button id="centerBtn" class="map-btn" title="Me centrer" style="width: 100%; height: auto; margin-bottom: 12px;">
+    <img src="Images/Centrage.png" class="btn-icon" alt="Me centrer">
+  </button>
+
+  <label>Taille interface : <span id="uiScaleValue" style="font-weight: bold; color: #E1FF14;">100%</span></label>
+  <input id="uiScale" type="range" min="0.7" max="1.5" value="1" step="0.1">
+
+  <label>Rechercher une adresse :</label>
+  <div class="searchRow">
+    <input id="search" type="text" placeholder="Adresse ou lieu…">
+    <button id="btnSearch">OK</button>
+  </div>
+
+  <label>Relief Z : <span id="zFactorValue" style="font-weight: bold; color: #E1FF14;">1.0</span></label>
+  <input id="zFactor" type="range" min="1" max="10" value="1" step="0.1">
+
+ 
+
+</div>
+
+
+<!-- ============================= -->
+<!-- MENU LAYERS                   -->
+<!-- ============================= -->
+<div id="layersPanel" class="panel-slide closed">
+  <h3>Style de carte</h3>
+  <select id="styleSelect">
+    <optgroup label="Classiques">
+      <option value="streets">Streets</option>
+      <option value="outdoor">Outdoor</option>
+      <option value="bright">Bright</option>
+      <option value="basic">Basic</option>
+    </optgroup>
+    <optgroup label="Sombres">
+      <option value="darkmatter">Dark Matter</option>
+      <option value="dataviz-dark">DataViz Dark</option>
+    </optgroup>
+    <optgroup label="Clairs / Data">
+      <option value="dataviz-light">DataViz Light</option>
+      <option value="positron">Positron</option>
+      <option value="toner">Toner</option>
+    </optgroup>
+    <optgroup label="Satellite">
+      <option value="satellite">Satellite</option>
+      <option value="hybrid" selected>Hybrid</option>
+    </optgroup>
+    <optgroup label="Relief / Topo">
+      <option value="topo">Topo</option>
+      <option value="winter">Hiver</option>
+    </optgroup>
+  </select>
+
+
+  <h3>Options</h3>
+  <div id="layersBox">
+    <!-- Généré dynamiquement par JS -->
+  </div>
+   <br>
+   <h3>Stations de ski</h3>
   <select id="skiSelect">
     <option value="">Choisir une station…</option>
     <option value="6.869,45.923">Chamonix</option>
     <option value="6.869,45.297">Les 2 Alpes</option>
     <option value="6.825,45.899">Megève</option>
-    <option value="6.565,45.470">Alpe d’Huez</option>
+    <option value="6.565,45.470">Alpe d'Huez</option>
     <option value="6.777,45.985">Avoriaz</option>
-    <option value="7.058,45.933">Val d’Isère</option>
-  </select>
-
-  <br><br>
-
-  <h3>Layers</h3>
-  <div id="layersBox">
-    <label><input type="checkbox" data-layer="road" checked> Routes</label>
-    <label><input type="checkbox" data-layer="building" checked> Bâtiments</label>
-    <label><input type="checkbox" data-layer="water" checked> Eau</label>
-  </div>
-
+    <option value="7.058,45.933">Val d'Isère</option>
+  </select> 
   <br>
-
-  <label>Relief Z :</label>
-  <input id="zFactor" type="range" min="1" max="10" value="1" step="0.1">
-
-  <br><br>
-  <label>Éclairage :</label> 
+   <label>Contraste, pour certaines cartes :</label>
   <input id="light" type="range" min="0.3" max="1.7" value="1" step="0.05">
+    </div> 
+<!-- PANNEAU 3 : PARCOURS GPS -->
+<div id="parcoursPanel" class="panel-slide closed">
+  <h3>Parcours</h3>
+  
+  <!-- Avertissement important -->
+  <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+    <strong style="color: #856404;">⚠️ Important :</strong>
+    <p style="color: #856404; font-size: 13px; margin: 5px 0 0 0; line-height: 1.4;">
+      Gardez l'écran allumé pendant l'enregistrement. L'écran ne se mettra pas en veille automatiquement.
+    </p>
+  </div>
+  
+   <button id="trackBtn">Enregistrer mon déplacement</button>
+   <!-- obsolète
+   <div style="margin-top: 10px;">
+     <label style="display: flex; align-items: center; gap: 8px;">
+       <input type="checkbox" id="autoSaveCheck" checked>
+       <span>Sauvegarde automatique GPX</span>
+     </label>
+   </div> 
+   -->
+ <br>
+   <br>
+<button id="traceToggleBtn" style="background: #0066cc; color: white;">Charger une trace existante</button>
 
-  <button id="trackBtn">Activer le suivi</button>
+<!-- Zone de chargement de fichier (cachée par défaut) -->
+<div id="traceLoadArea" style="display: none; margin-top: 10px;">
+  <input id="traceFile" type="file" accept=".gpx,.kml,.geojson,.json,.igc,.tcx">
+  <button id="clearTraceBtn" style="background: #dc3545; margin-top: 8px;">Effacer le parcours</button>
+</div>
+
+</div>
+
+<!-- PANNEAU 4 : Camera -->
+<div id="cameraPanel" class="panel-slide closed">
+  <h3>Caméra</h3>
+
+  <!-- Bouton centrage comme les autres -->
+  <button id="centerBtn2" class="map-btn" title="Me centrer" style="width: 100%; height: auto; margin-bottom: 12px;">
+    <img src="Images/Centrage.png" class="btn-icon" alt="Me centrer">
+  </button>
+
+   <!-- Bouton Pano-->
+<button id="PanoBtn" class="map-btn" title="Panorama" style="width: 100%; height: auto; margin-bottom: 12px;">
+  <img src="Images/Panoramique.png" class="btn-icon" alt="Panorama">
+</button> 
+
+ <!-- Bouton Pitch-->
+<button id="pitchBtn" class="map-btn" title="Bascule" style="width: 100%; height: auto; margin-bottom: 12px;">
+  <img src="Images/Bascule.png" class="btn-icon" alt="Bascule">
+</button>
+
+ <!-- Nouveau Bouton Raponamique -->
+<button id="rapanoBtn" class="map-btn" title="Pano radada" style="width: 100%; height: auto; margin-bottom: 12px;">
+  <img src="Images/Raponamique.png" class="btn-icon" alt="Raponamique">
+</button>
+<label>Angle caméra : <span id="rasantPitchValue">70</span>°</label>
+<input id="rasantPitch" type="range" min="40" max="80" value="70" step="1">
 </div>
 
 <script src="map.js"></script>
 
 </body>
 </html>
-
