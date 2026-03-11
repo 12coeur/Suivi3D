@@ -1,5 +1,6 @@
 Le site fonctionne parfaitement 
 mais je ne continue pas pour ces raisons ; 
+
 -1 MapLibre n’est pas pérenne, donc mon quota, rien que sur une balade est drastiquement diminué.
 
 -2 Le blocage de la mise en veille n’est possible qu’avec Chrome ou Edge
